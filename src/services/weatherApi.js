@@ -1,4 +1,5 @@
-const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+const API_KEY = import.meta.env.VITE_WEATHER_API_KEY;
+console.log("API_KEY:", API_KEY);
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
 const GEO_URL = "https://api.openweathermap.org/geo/1.0";
 
@@ -53,12 +54,13 @@ export const getCurrentWeatherByCoords = async (lat, lon) => {
                 throw new Error(
                     `Invalid API Key, please check your OpenWeatherMap API configuration`
                 );
+            } else {
+                throw new Error(
+                    "Weather service is temporarily unavailable. Please try again later."
+                );
             }
-        } else {
-            throw new Error(
-                "Weather service is temporarily unavailable.please try Again later."
-            );
         }
+
 
         const data = await response.json();
 
